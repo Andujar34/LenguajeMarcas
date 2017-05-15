@@ -32,14 +32,25 @@ class votos{
         $this->dom->load(FICHERO);
         $this->xpath = new DOMXPath($this->dom);
         $contador=0;
+
         foreach ($this->xpath->query("/lugares/lugar") as $nodo){
             $id=$nodo->getAttribute('id');
             $puntuacion=0;
             $votos = $this->xpath->query("/lugares/lugar[@id='".$id."']/voto/item");
+            $num_votaciones=0;
             $num_votaciones=(int)$votos->length.PHP_EOL;
+           $i=0;
             foreach($votos as $nodoItem){
                 $puntuacion+=(int)$nodoItem->nodeValue;
+                $i++;
             }
+            if($id==$idLugar && $puntuacion!=0){
+                $media=$i;
+                $media=number_format($media,2,'.','');
+            }else if($id==$idLugar && $puntuacion==0){
+                $media=0;
+            }
+            
             if($puntuacion!=null){
                 $ranking[$contador]=$id;
                 $ranking_variable[$contador]=($puntuacion/$num_votaciones);
@@ -82,7 +93,7 @@ class votos{
         if($puntuacion==0){
             $puntuacion="No tiene puntos";
         }
-       echo json_encode(array("votante"=>$votante,"puntuacion"=>$puntuacion,"fecha"=>$fecha));
+       echo json_encode(array("votante"=>$votante,"puntuacion"=>$puntuacion,"fecha"=>$fecha,"media"=>$media));
     
     }
     function burbuja($ranking,$ranking_variable){

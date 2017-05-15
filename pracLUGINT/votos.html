@@ -6,198 +6,271 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<style>
-		.ec-stars-wrapper {
-	/* Espacio entre los inline-block (los hijos, los `a`) 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+    </style>
+    <style>
+        .ec-stars-wrapper {
+            /* Espacio entre los inline-block (los hijos, los `a`) 
 	   http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
-	font-size: 0;
-	/* Podríamos quitarlo, 
+            font-size: 0;
+            /* Podríamos quitarlo, 
 		pero de esta manera (siempre que no le demos padding), 
 		sólo aplicará la regla .ec-stars-wrapper:hover a cuando
 		también se esté haciendo hover a alguna estrella */
-	display: inline-block;
-}
-.ec-stars-wrapper a {
-	text-decoration: none;
-	display: inline-block;
-	/* Volver a dar tamaño al texto */
-	font-size: 32px;
-	font-size: 2rem;
-	
-	color: #888;
-}
-
-.ec-stars-wrapper:hover a {
-	color: rgb(39, 130, 228);
-}
-/*
+            display: inline-block;
+        }
+        
+        .ec-stars-wrapper a {
+            text-decoration: none;
+            display: inline-block;
+            /* Volver a dar tamaño al texto */
+            font-size: 32px;
+            font-size: 2rem;
+            color: #888;
+        }
+        
+        .ec-stars-wrapper:hover a {
+            color: rgb(39, 130, 228);
+        }
+        /*
  * El selector de hijo, es necesario para aumentar la especifidad
  */
-.ec-stars-wrapper > a:hover ~ a {
-	color: #888;
-}
-		#divMapa {
-			
-	width: 60%;
-    height: 500px;
-    margin:20px 20px;
-    float:left;
-    
-
-		}
-		#contador{
-			padding: 15px;
-			display: inline;
-		}
-		#divPuntuacion{
-			padding: 15px;
-			margin: 10px 0;
-		}
-        #divInicio{
+        
+        .ec-stars-wrapper>a:hover~a {
+            color: #888;
+        }
+        
+        #divMapa {
+            width: 60%;
+            height: 500px;
+            margin: 20px 20px;
+            float: left;
+        }
+        
+        #contador {
+            display: block;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 34px
+        }
+        
+        #divPuntuacion {
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        #divInicio {
             width: 100%;
             height: 50px;
             margin-top: 3px;
-            font-size: 30px;
+            /*font-size: 30px;*/
             text-align: center;
         }
-        .divBeach{
+        
+        .divBeach {
             width: 35%;
             box-sizing: border-box;
             float: left;
-            margin-top:20px;
+            margin-top: 20px;
             display: none;
         }
-        .divSiteInformation{
+        
+        .divSiteInformation {
             padding: 15px;
         }
-        #contador{
-           visibility:hidden
-        }
-        #btnVotar{
+        
+        #contador {}
+        
+        #btnVotar {
             opacity: 1;
             cursor: pointer;
         }
         
+        .acidjs-rating-stars,
+        .acidjs-rating-stars label::before {
+            display: inline-block;
+        }
         
-	</style>
+        .acidjs-rating-stars label:hover,
+        .acidjs-rating-stars label:hover~label {
+            color: #189800;
+        }
+        
+        .acidjs-rating-stars * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .acidjs-rating-stars input {
+            display: none;
+        }
+        
+        .acidjs-rating-stars {
+            unicode-bidi: bidi-override;
+            direction: rtl;
+        }
+        
+        .acidjs-rating-stars label {
+            color: #ccc;
+        }
+        
+        .acidjs-rating-stars label::before {
+            content: "\2605";
+            width: 18px;
+            line-height: 18px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .acidjs-rating-stars input:checked~label {
+            color: #f5b301;
+        }
+        
+        .acidjs-rating-disabled {
+            opacity: .50;
+            -webkit-pointer-events: none;
+            -moz-pointer-events: none;
+            pointer-events: none;
+        }
+        
+        .panel-heading {
+            text-align: center;
+        }
+        
+        .panel-body {
+            text-align: center;
+        }
+        
+        .container {
+            min-width: 1000px;
+            /* padding-right: 15px; */
+            /* padding-left: 15px; */
+        }
+    </style>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGWIAtZX78ZskQP9brXKIcm6ukkFP5aqU"></script>
-     <script src="../js/ajaxCG.js"></script>
+    <script src="../js/ajaxCG.js"></script>
 </head>
 
 <body>
     <div class="container">
-    <div id="divInicio">Hola, </div>
-    <div id="divMapa"></div>
-    <div class="panel panel-primary pull-right divBeach" id="divBeach1">
-		<div class="panel-heading" id="namePlaya" data-id=""></div>
-		<div class="panel-body">
-			<div id="divPuntuacion">
-			<label class="radio-inline">
-      <input type="radio"  value="1" name="optradio" checked="checked"> 1
-    </label>
-			<label class="radio-inline">
-      <input type="radio" value="2"  name="optradio"> 2
-    </label>
-			<label class="radio-inline">
-      <input type="radio" value="3"  name="optradio"> 3
-    </label>
-			<label class="radio-inline">
-      <input type="radio" value="4"  name="optradio"> 4
-    </label>
-			<label class="radio-inline">
-      <input type="radio" value="5"  name="optradio"> 5
-	  </div>
-	  
-	 
-    </label>
-	<!--<div class="ec-stars-wrapper">
-	<a href="#" data-value="1" title="Votar con 1 estrellas" >&#9733;</a>
-	<a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-	<a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-	<a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-	<a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
-</div>-->
- <div id="contador">8</div> 
-	  <button id="butVotar" class="btn-primary btn-lg">Enviar</button>
-		</div>
-	</div>
-    </div>
-    <div class="panel panel-primary pull-right divBeach" id="divBeach2">
-		<div class="panel-heading">Datos del sitio </div>
-		<div class="divSiteInformation">
-		<div>
-			<Strong>Votos totales :</Strong><span id="sTotalVotes"> 180</span></div>
-		<div>
-			<Strong>Fecha último voto :</Strong><span id="sLastVote"> 10/3/2017</span></div>
-		<div>
-			<Strong>Último votante:</Strong><span id="sLastVoter"> Emilio Aragon</span></div>
-	</div>
-	</div>
+
+
+        <div class="panel panel-primary ">
+
+
+            <div class="panel-heading">MAPA </div>
+
+            <div class="" id="divMapa"></div>
+
+            <div class="panel panel-primary pull-right divBeach" id="divUSer" style="display: block;">
+                <div class="panel-heading">Datos del usuario </div>
+                <div class="divSiteInformation">
+                    <div>
+                        <Strong>Nombre :</Strong><span id="divInicio"> </span></div>
+                </div>
+            </div>
+
+
+            <div class="panel panel-primary pull-right divBeach" id="divBeach1">
+                <div class="panel-heading" id="namePlaya" data-id=""></div>
+                <div class="panel-body">
+                    <div id="divPuntuacion">
+                        <div class="acidjs-rating-stars">
+                            <form>
+                                <input type="radio" name="optradio" id="group-1-0" value=5 checked="checked"><label for="group-1-0"></label>
+                                <input type="radio" name="optradio" id="group-1-1" value=4 /><label for="group-1-1"></label>
+                                <input type="radio" name="optradio" id="group-1-2" value=3 /><label for="group-1-2"></label>
+                                <input type="radio" name="optradio" id="group-1-3" value=2 /><label for="group-1-3"></label>
+                                <input type="radio" name="optradio" id="group-1-4" value=1 /><label for="group-1-4"></label>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="contador"></div>
+                    <button id="butVotar" class="btn-primary btn-lg">Enviar</button>
+                </div>
+            </div>
+            <div class="panel panel-primary pull-right divBeach" id="divBeach2">
+                <div class="panel-heading">Datos del sitio </div>
+                <div class="divSiteInformation">
+                    <div>
+                        <Strong>Votos totales :</Strong><span id="sTotalVotes"> 180</span></div>
+                    <div>
+                        <Strong>Fecha último voto :</Strong><span id="sLastVote"> 10/3/2017</span></div>
+                    <div>
+                        <Strong>Último votante:</Strong><span id="sLastVoter"> Emilio Aragon</span></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 <script>
     var usuario;
-    var aPlayas=[];
-    var tiempo=10;
+    var aPlayas = [];
+    var tiempo = 10;
     window.onload = () => {
 
         ajax({
-                type: 'POST',
-                url: 'controlSesion.php',
-                parse: true
-            }).then((data) => {
-                if (data.status == "ok") {
-                    if(localStorage.getItem("tiempo")!=10){
-                        usuario=data.usuario;
-                        tiempo=localStorage.getItem("tiempo");
-                        XML();
-                        generateVotation(localStorage.getItem("playa"));
-                        cronometro();
-                    }else{
-                        usuario=data.usuario;
-                        XML();
-                    }
+            type: 'POST',
+            url: 'controlSesion.php',
+            parse: true
+        }).then((data) => {
+            if (data.status == "ok") {
+                if (localStorage.getItem("tiempo") != 10) {
+                    usuario = data.usuario;
+                    tiempo = localStorage.getItem("tiempo");
+                    XML();
+                    generateVotation(localStorage.getItem("playa"));
+                    cronometro();
                 } else {
-                    window.location.href = 'login.html';
+                    usuario = data.usuario;
+                    XML();
                 }
+            } else {
+                window.location.href = 'login.html';
+            }
 
-            }).catch((error) => {
-                console.log(error);
-            });
+        }).catch((error) => {
+            console.log(error);
+        });
     }
-    function XML(){
-        window.document.getElementById('divInicio').innerHTML+=usuario;
-       let xmlhttp = new XMLHttpRequest();
-            xmlhttp.open('GET', 'lugaresInt.xml', false)
-            xmlhttp.send();
-            xmlDoc = xmlhttp.responseXML;
+
+    function XML() {
+        window.document.getElementById('divInicio').innerHTML += usuario;
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.open('GET', 'lugaresInt.xml', false)
+        xmlhttp.send();
+        xmlDoc = xmlhttp.responseXML;
         let nodos = {};
-            nodos = xmlDoc.evaluate("/lugares/lugar", xmlDoc, null, XPathResult.ANY_TYPE, null);
-            let thisNode = nodos.iterateNext();
-            while (thisNode) {
-                let id = thisNode.getAttribute('id');
-                aPlayas[id] = Object.create(Object.prototype);
-                if(thisNode.getAttribute('pos')){
-                    aPlayas[id].pos = thisNode.getAttribute('pos');
-                }
-                var shortNode=thisNode.children[0].children[0];
-                aPlayas[id].lat= shortNode.getAttribute('lat');
-                aPlayas[id].lon =shortNode.getAttribute('lon');
-                for(var i=0;i<shortNode.children.length;i++){
-                    aPlayas[id][shortNode.children[i].nodeName]=shortNode.children[i].textContent;
-                }   
-                thisNode = nodos.iterateNext();
-             }
+        nodos = xmlDoc.evaluate("/lugares/lugar", xmlDoc, null, XPathResult.ANY_TYPE, null);
+        let thisNode = nodos.iterateNext();
+        while (thisNode) {
+            let id = thisNode.getAttribute('id');
+            aPlayas[id] = Object.create(Object.prototype);
+            if (thisNode.getAttribute('pos')) {
+                aPlayas[id].pos = thisNode.getAttribute('pos');
+            }
+            var shortNode = thisNode.children[0].children[0];
+            aPlayas[id].lat = shortNode.getAttribute('lat');
+            aPlayas[id].lon = shortNode.getAttribute('lon');
+            for (var i = 0; i < shortNode.children.length; i++) {
+                aPlayas[id][shortNode.children[i].nodeName] = shortNode.children[i].textContent;
+            }
+            thisNode = nodos.iterateNext();
+        }
         mapa();
     }
-    butVotar.onclick=() => {
+    butVotar.onclick = () => {
         var puntuacion = window.document.getElementsByName('optradio');
-        for(var i=0;i<puntuacion.length;i++){
-            if(puntuacion[i].checked){
-                resultado=puntuacion[i].value;
+        for (var i = 0; i < puntuacion.length; i++) {
+            if (puntuacion[i].checked) {
+                resultado = puntuacion[i].value;
+
             }
         }
         ajax({
@@ -208,40 +281,148 @@
                 user: usuario,
                 votos: resultado,
                 iDlugar: window.document.getElementById('namePlaya').dataset.id
-
             },
             parse: true
         }).then((data) => {
-           console.log(data);
-           if(data.status=="ok"){
-                cronometro(tiempo);    
-           }
-          
+            console.log(data);
+            if (data.status == "ok") {
+                var id = window.document.getElementById('namePlaya').dataset.id;
+                generateVotation(id);
+                cronometro(tiempo);
+            }
+
 
         }).catch((error) => {
             console.log(error);
         });
-    
+
     }
-    function mapa(){
+
+    function mapa() {
         var dMapa = document.getElementById('divMapa');
-        var LatLon = new google.maps.LatLng(36.721274,-4.421399);
+        var LatLon = new google.maps.LatLng(36.721274, -4.421399);
         var objConfig = {
-            zoom:8,
-            center:LatLon
+            zoom: 8,
+            center: LatLon,
+            styles: [{
+                elementType: 'geometry',
+                stylers: [{
+                    color: '#242f3e'
+                }]
+            }, {
+                elementType: 'labels.text.stroke',
+                stylers: [{
+                    color: '#242f3e'
+                }]
+            }, {
+                elementType: 'labels.text.fill',
+                stylers: [{
+                    color: '#746855'
+                }]
+            }, {
+                featureType: 'administrative.locality',
+                elementType: 'labels.text.fill',
+                stylers: [{
+                    color: '#d59563'
+                }]
+            }, {
+                featureType: 'poi',
+                elementType: 'labels.text.fill',
+                stylers: [{
+                    color: '#d59563'
+                }]
+            }, {
+                featureType: 'poi.park',
+                elementType: 'geometry',
+                stylers: [{
+                    color: '#263c3f'
+                }]
+            }, {
+                featureType: 'poi.park',
+                elementType: 'labels.text.fill',
+                stylers: [{
+                    color: '#6b9a76'
+                }]
+            }, {
+                featureType: 'road',
+                elementType: 'geometry',
+                stylers: [{
+                    color: '#38414e'
+                }]
+            }, {
+                featureType: 'road',
+                elementType: 'geometry.stroke',
+                stylers: [{
+                    color: '#212a37'
+                }]
+            }, {
+                featureType: 'road',
+                elementType: 'labels.text.fill',
+                stylers: [{
+                    color: '#9ca5b3'
+                }]
+            }, {
+                featureType: 'road.highway',
+                elementType: 'geometry',
+                stylers: [{
+                    color: '#746855'
+                }]
+            }, {
+                featureType: 'road.highway',
+                elementType: 'geometry.stroke',
+                stylers: [{
+                    color: '#1f2835'
+                }]
+            }, {
+                featureType: 'road.highway',
+                elementType: 'labels.text.fill',
+                stylers: [{
+                    color: '#f3d19c'
+                }]
+            }, {
+                featureType: 'transit',
+                elementType: 'geometry',
+                stylers: [{
+                    color: '#2f3948'
+                }]
+            }, {
+                featureType: 'transit.station',
+                elementType: 'labels.text.fill',
+                stylers: [{
+                    color: '#d59563'
+                }]
+            }, {
+                featureType: 'water',
+                elementType: 'geometry',
+                stylers: [{
+                    color: '#17263c'
+                }]
+            }, {
+                featureType: 'water',
+                elementType: 'labels.text.fill',
+                stylers: [{
+                    color: '#515c6d'
+                }]
+            }, {
+                featureType: 'water',
+                elementType: 'labels.text.stroke',
+                stylers: [{
+                    color: '#17263c'
+                }]
+            }],
+            disableDefaultUI: true
         };
         var contentString = {};
-        var gMapa = new google.maps.Map(dMapa,objConfig);
-        for(k in aPlayas){
-            var LatLon = new google.maps.LatLng(aPlayas[k].lat,aPlayas[k].lon);
+        var gMapa = new google.maps.Map(dMapa, objConfig);
+        for (k in aPlayas) {
+            var LatLon = new google.maps.LatLng(aPlayas[k].lat, aPlayas[k].lon);
             var objConfigMarker = {
-                    position:LatLon,
-                    map: gMapa,
-                   
-                    };
-            var gMarker = new google.maps.Marker (objConfigMarker);
-            
-          contentString[gMarker.position] = '<div class="row" >';
+                position: LatLon,
+                map: gMapa
+            };
+            var gMarker = new google.maps.Marker(objConfigMarker);
+
+            contentString[gMarker.position] = '<div class="row" >';
             contentString[gMarker.position] += '<h4 class="text-center">' + aPlayas[k].lugar + '</h4>';
             contentString[gMarker.position] += '<div class="col-sm-3"><img style="width:50px;height:50px" src="' +
                 aPlayas[k].foto + '"></div>';
@@ -250,20 +431,21 @@
             contentString[gMarker.position] += '<div>Ciudad: ' + aPlayas[k].ciudad + '</div>';
             contentString[gMarker.position] += '<div>País: ' + aPlayas[k].pais +
                 '</div></div>';
-            contentString[gMarker.position] += '<div class="col-sm-3"><button class="btn btn-success" type=button id="' + k +
+            contentString[gMarker.position] += '<div class="col-sm-3"><button class="btn-primary btn-lg" type=button id="' + k +
                 '" onclick="generateVotation(this.id)">Votar</button></div></div>';
-                var infowindow = new google.maps.InfoWindow();
-                 gMarker.addListener('click', function() {
-                    infowindow.setContent(contentString[this.position]);
-                    infowindow.open(gMapa,this);
-                });
-                
+            var infowindow = new google.maps.InfoWindow();
+            gMarker.addListener('click', function() {
+                infowindow.setContent(contentString[this.position]);
+                infowindow.open(gMapa, this);
+            });
+
         }
-       
+
     }
-    function generateVotation(k){
-       
-       ajax({
+
+    function generateVotation(k) {
+
+        ajax({
             type: 'POST',
             url: 'votos.php',
             data: {
@@ -273,38 +455,39 @@
             parse: true
         }).then((data) => {
             var divPlaya = window.document.getElementById('namePlaya');
-            divPlaya.dataset.id=k;
-            divPlaya.innerHTML=aPlayas[k].lugar;
-            window.document.getElementById('divBeach1').style.display="block";
-            window.document.getElementById('divBeach2').style.display="block";
-            window.document.getElementById('sTotalVotes').innerHTML=data.puntuacion;
-            window.document.getElementById('sLastVote').innerHTML=data.fecha;
-            window.document.getElementById('sLastVoter').innerHTML=data.votante;
+            divPlaya.dataset.id = k;
+            divPlaya.innerHTML = aPlayas[k].lugar;
+            window.document.getElementById('divBeach1').style.display = "block";
+            window.document.getElementById('divBeach2').style.display = "block";
+            window.document.getElementById('sTotalVotes').innerHTML = data.puntuacion;
+            window.document.getElementById('sLastVote').innerHTML = data.fecha;
+            window.document.getElementById('sLastVoter').innerHTML = data.votante;
+            console.log("MEDIA" + data.media);
         }).catch((error) => {
             console.log(error);
         });
-       
+
     }
-    function cronometro(){
-        var botonVotar=  window.document.getElementById('butVotar');
+
+    function cronometro() {
+        var botonVotar = window.document.getElementById('butVotar');
         var contTempo = window.document.getElementById('contador');
-        botonVotar.disabled=true;
-        botonVotar.style.cursor="not-allowed";
-        botonVotar.style.opacity=0.5;
-        contTempo.style.visibility="visible";
-        contTempo.innerHTML=tiempo;
+        botonVotar.style.display = "none";
+
+        contTempo.style.display = "block";
+        contTempo.innerHTML = tiempo;
         tiempo--;
-        localStorage.setItem("tiempo",tiempo);
-        localStorage.setItem("playa",window.document.getElementById('namePlaya').dataset.id);
-        
-        if(tiempo>0){
-            setTimeout(cronometro,1000);
-        }else{
-            contTempo.style.visibility="hidden";
-            botonVotar.style.cursor="pointer";
-            botonVotar.style.opacity=1;
-            tiempo=10;
-            botonVotar.disabled=false;
+        localStorage.setItem("tiempo", tiempo);
+
+        localStorage.setItem("playa", window.document.getElementById('namePlaya').dataset.id);
+
+        if (tiempo > 0) {
+            setTimeout(cronometro, 1000);
+        } else {
+            contTempo.style.display = "none";
+
+            tiempo = 10;
+            botonVotar.style.display = "initial";
             localStorage.removeItem("tiempo");
             localStorage.removeItem("playa");
         }
