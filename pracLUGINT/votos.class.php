@@ -13,12 +13,12 @@ class votos{
     function givePoint($user,$votos,$navegador,$idLugar,$tiempo,$ip){
         $this->dom->load(FICHERO);
         $this->xpath = new DOMXPath($this->dom);
-            foreach ($this->xpath->query("//lugar[@id='$idLugar']") as $nodo) {
+            foreach ($this->xpath->query("/lugares/lugar[@id='$idLugar']") as $nodo) {
             $node_voto = $this->dom->createElement('voto');
             $node_voto->setAttribute("user",$user);
             $node_voto->setAttribute("t",$tiempo);
             $node_item =$this->dom->createElement('item',$votos);
-            $node_ip=$this->dom->createElement('item',$ip);
+            $node_ip=$this->dom->createElement('ip',$ip);
             $node_userAgent=$this->dom->createElement('userAgent',$navegador);
             $nodo->appendChild($node_voto);
             $node_voto->appendChild($node_item);
@@ -32,37 +32,41 @@ class votos{
         $this->dom->load(FICHERO);
         $this->xpath = new DOMXPath($this->dom);
         $contador=0;
-
         foreach ($this->xpath->query("/lugares/lugar") as $nodo){
             $id=$nodo->getAttribute('id');
             $puntuacion=0;
             $votos = $this->xpath->query("/lugares/lugar[@id='".$id."']/voto/item");
-            $num_votaciones=0;
             $num_votaciones=(int)$votos->length.PHP_EOL;
-           $i=0;
             foreach($votos as $nodoItem){
                 $puntuacion+=(int)$nodoItem->nodeValue;
-                $i++;
             }
             if($id==$idLugar && $puntuacion!=0){
-                $media=$i;
+                $media=$puntuacion/$num_votaciones;
                 $media=number_format($media,2,'.','');
+                $puntuaciontotal=$puntuacion;
+                
             }else if($id==$idLugar && $puntuacion==0){
-                $media=0;
+                $media="No tiene puntuacion media";
+                $puntuaciontotal="No tiene puntos";
+        
             }
             
             if($puntuacion!=null){
                 $ranking[$contador]=$id;
                 $ranking_variable[$contador]=($puntuacion/$num_votaciones);
                 $contador++; 
-            }    
+            }   
+            
+
         }
+    
         $result= $this->burbuja($ranking,$ranking_variable);
        foreach($this->xpath->query("/lugares/lugar") as $nodo){
             $id=$nodo->getAttribute('id');
-            for($i=0;$i<$ranking->length;$i++){
+            for($i=0;$i<count($ranking);$i++){
                 if($id==$ranking[i]){
                     $nodo->setAttribute('pos',$i);
+                   
                 }
             }
         }
@@ -86,13 +90,6 @@ class votos{
             $fecha="No existe ninguna puntuacion";
         }
         
-        $puntuacion=0;
-        foreach($this->xpath->query("/lugares/lugar[@id='$idLugar']/voto/item") as $nodo){
-            $puntuacion+=(int)$nodo->nodeValue;
-        }
-        if($puntuacion==0){
-            $puntuacion="No tiene puntos";
-        }
        echo json_encode(array("votante"=>$votante,"puntuacion"=>$puntuacion,"fecha"=>$fecha,"media"=>$media));
     
     }

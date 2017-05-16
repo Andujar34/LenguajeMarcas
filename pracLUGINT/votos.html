@@ -197,12 +197,15 @@
             <div class="panel panel-primary pull-right divBeach" id="divBeach2">
                 <div class="panel-heading">Datos del sitio </div>
                 <div class="divSiteInformation">
+                    
                     <div>
-                        <Strong>Votos totales :</Strong><span id="sTotalVotes"> 180</span></div>
+                        <Strong>Votos totales :</Strong><span id="sTotalVotes"></span></div>
+                        <div>
+                        <Strong>Votos media:</Strong><span id="sMedia"></span></div>
                     <div>
-                        <Strong>Fecha último voto :</Strong><span id="sLastVote"> 10/3/2017</span></div>
+                        <Strong>Fecha último voto :</Strong><span id="sLastVote"></span></div>
                     <div>
-                        <Strong>Último votante:</Strong><span id="sLastVoter"> Emilio Aragon</span></div>
+                        <Strong>Último votante:</Strong><span id="sLastVoter"></span></div>
                 </div>
             </div>
         </div>
@@ -430,7 +433,11 @@
                 .direccion + '</div>';
             contentString[gMarker.position] += '<div>Ciudad: ' + aPlayas[k].ciudad + '</div>';
             contentString[gMarker.position] += '<div>País: ' + aPlayas[k].pais +
-                '</div></div>';
+                '</div>';
+                if(aPlayas[k].pos){
+                    contentString[gMarker.position] += '<div>Posicion Mundial: ' + aPlayas[k].pos + '</div>';
+                }
+             contentString[gMarker.position] += '</div>';   
             contentString[gMarker.position] += '<div class="col-sm-3"><button class="btn-primary btn-lg" type=button id="' + k +
                 '" onclick="generateVotation(this.id)">Votar</button></div></div>';
             var infowindow = new google.maps.InfoWindow();
@@ -462,7 +469,8 @@
             window.document.getElementById('sTotalVotes').innerHTML = data.puntuacion;
             window.document.getElementById('sLastVote').innerHTML = data.fecha;
             window.document.getElementById('sLastVoter').innerHTML = data.votante;
-            console.log("MEDIA" + data.media);
+           // window.document.getElementById('sMedia').innerHTML = data.media;
+            
         }).catch((error) => {
             console.log(error);
         });
