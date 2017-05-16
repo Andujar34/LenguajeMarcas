@@ -61,11 +61,12 @@ class votos{
         }
     
         $result= $this->burbuja($ranking,$ranking_variable);
+        
        foreach($this->xpath->query("/lugares/lugar") as $nodo){
             $id=$nodo->getAttribute('id');
-            for($i=0;$i<count($ranking);$i++){
-                if($id==$ranking[i]){
-                    $nodo->setAttribute('pos',$i);
+            for($i=0;$i<count($result);$i++){
+                if($id==$result[$i]){
+                    $nodo->setAttribute('pos',($i+1));
                    
                 }
             }
@@ -90,7 +91,7 @@ class votos{
             $fecha="No existe ninguna puntuacion";
         }
         
-       echo json_encode(array("votante"=>$votante,"puntuacion"=>$puntuacion,"fecha"=>$fecha,"media"=>$media));
+       echo json_encode(array("votante"=>$votante,"puntuacion"=>$puntuaciontotal,"fecha"=>$fecha,"media"=>$media));
     
     }
     function burbuja($ranking,$ranking_variable){

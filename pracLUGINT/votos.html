@@ -438,7 +438,7 @@
                     contentString[gMarker.position] += '<div>Posicion Mundial: ' + aPlayas[k].pos + '</div>';
                 }
              contentString[gMarker.position] += '</div>';   
-            contentString[gMarker.position] += '<div class="col-sm-3"><button class="btn-primary btn-lg" type=button id="' + k +
+            contentString[gMarker.position] += '<div class="col-sm-3"><button class="btn-primary btn-lg" type="button" id="' + k +
                 '" onclick="generateVotation(this.id)">Votar</button></div></div>';
             var infowindow = new google.maps.InfoWindow();
             gMarker.addListener('click', function() {
@@ -469,7 +469,7 @@
             window.document.getElementById('sTotalVotes').innerHTML = data.puntuacion;
             window.document.getElementById('sLastVote').innerHTML = data.fecha;
             window.document.getElementById('sLastVoter').innerHTML = data.votante;
-           // window.document.getElementById('sMedia').innerHTML = data.media;
+           window.document.getElementById('sMedia').innerHTML = data.media;
             
         }).catch((error) => {
             console.log(error);
@@ -493,7 +493,6 @@
             setTimeout(cronometro, 1000);
         } else {
             contTempo.style.display = "none";
-
             tiempo = 10;
             botonVotar.style.display = "initial";
             localStorage.removeItem("tiempo");
