@@ -148,10 +148,6 @@
             /* padding-right: 15px; */
             /* padding-left: 15px; */
         }
-        #butComprobar{
-            text-align: center;
-            
-        }
     </style>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGWIAtZX78ZskQP9brXKIcm6ukkFP5aqU"></script>
     <script src="../js/ajaxCG.js"></script>
@@ -211,9 +207,8 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
-    <button class="btn-primary btn-lg" id="butComprobar" type="button" onclick="verVotacion()" >Comprobar Votaciones</button>
 </body>
 <script>
     var usuario;
@@ -485,11 +480,14 @@
         var botonVotar = window.document.getElementById('butVotar');
         var contTempo = window.document.getElementById('contador');
         botonVotar.style.display = "none";
+
         contTempo.style.display = "block";
         contTempo.innerHTML = tiempo;
         tiempo--;
         localStorage.setItem("tiempo", tiempo);
+
         localStorage.setItem("playa", window.document.getElementById('namePlaya').dataset.id);
+
         if (tiempo > 0) {
             setTimeout(cronometro, 1000);
         } else {
@@ -499,9 +497,6 @@
             localStorage.removeItem("tiempo");
             localStorage.removeItem("playa");
         }
-    }
-    function verVotacion(){
-         window.open("personas.html", "_self");
     }
 </script>
 

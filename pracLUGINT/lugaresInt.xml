@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lugares>
+    <informacionGeneral>
+        <nombreProducto>Lugares de interés</nombreProducto>
+        <version>1.0</version>
+        <grupo>S11AW</grupo>
+        <fecha>20170427</fecha>
+    </informacionGeneral>
+    <lugar id="ChIJu8kKBAglcg0R85ac06uyas4" pos="1">
+        <localizacion>
+            <geo lat="36.7512" lon="-3.8659">
+                <lugar>Playa Burriana</lugar>
+                <ciudad>Nerja</ciudad>
+                <pais>España</pais>
+                <direccion>Camino de Burriana, 28, 29780 Nerja, Málaga, España</direccion>
+                <puntuacion>4.4</puntuacion>
+                <foto>
+                    <![CDATA[http://www.guianerja.com/wp-content/uploads/2009/09/Burriana-Aug20th-6.jpg]]>
+                </foto>
+            </geo>
+        </localizacion>
+        <voto user="ramses" t="1494963291">
+            <item>4</item>
+            <ip>79.156.50.136</ip>
+            <userAgent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</userAgent>
+        </voto>
+        <voto user="ramses" t="1494963297">
+            <item>5</item>
+            <ip>81.40.128.46</ip>
+            <userAgent>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</userAgent>
+        </voto>
+        <voto user="ramses" t="1495130799">
+            <item>5</item>
+            <ip>81.40.128.46</ip>
+            <userAgent>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</userAgent>
+        </voto>
+        <voto user="ramses" t="1495130853">
+            <item>5</item>
+            <ip>81.40.128.46</ip>
+            <userAgent>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</userAgent>
+        </voto>
+    </lugar>
+    <lugar id="ChIJ9-bXn6-IcQ0RAdxpSIK7o_c" pos="2">
+        <localizacion>
+            <geo lat="36.7396" lon="-3.6679">
+                <lugar>Playa de Velilla</lugar>
+                <ciudad>Playa de Velilla</ciudad>
+                <pais>España</pais>
+                <direccion>Playa de Velilla, España</direccion>
+                <foto>
+                    <![CDATA[https://i.ytimg.com/vi/nANV7NkMbgs/maxresdefault.jpg]]>
+                </foto>
+            </geo>
+        </localizacion>
+        <voto user="ramses" t="1494963207">
+            <item>5</item>
+            <ip>81.40.128.46</ip>
+            <userAgent>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</userAgent>
+        </voto>
+        <voto user="ramses" t="1494963240">
+            <item>2</item>
+            <ip>81.40.128.46</ip>
+            <userAgent>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</userAgent>
+        </voto>
+        <voto user="ramses" t="1495131377">
+            <item>1</item>
+            <ip>81.40.128.46</ip>
+            <userAgent>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</userAgent>
+        </voto>
+    </lugar>
+    <lugar id="ChIJDZDtRYRFcg0R7_7hd6wPegw" pos="3">
+        <localizacion>
+            <geo lat="36.7157" lon="-4.1853">
+                <lugar>Playa Benajarafe</lugar>
+                <ciudad>Vélez-Málaga</ciudad>
+                <pais>España</pais>
+                <direccion>Poblado Benajarafe, 33, 29790 Vélez-Málaga, Málaga, España</direccion>
+                <puntuacion>4.6</puntuacion>
+                <foto>
+                    <![CDATA[http://www.playas.es/images/atalaya-s-550-playa-benajarafe-31081330.jpg]]>
+                </foto>
+            </geo>
+        </localizacion>
+        <voto user="ramses" t="1494963332">
+            <item>3</item>
+            <ip>79.156.50.136</ip>
+            <userAgent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</userAgent>
+        </voto>
+        <voto user="ramses" t="1494963427">
+            <item>4</item>
+            <ip>79.156.50.136</ip>
+            <userAgent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</userAgent>
+        </voto>
+    </lugar>
+    <lugar id="ChIJr9bPxM4ncg0RjP--4tPku58" pos="4">
+        <localizacion>
+            <geo lat="36.7375" lon="-3.7772">
+                <lugar>Playa de Cantarriján</lugar>
+                <ciudad>Granada</ciudad>
+                <pais>España</pais>
+                <direccion>Almuñécar, Granada, España</direccion>
+                <puntuacion>4.5</puntuacion>
+                <foto>
+                    <![CDATA[http://www.andalucia.org/media/fotos/image_98130_jpeg_800x600_q85.jpg]]>
+                </foto>
+            </geo>
+        </localizacion>
+        <voto user="ramses" t="1494963330">
+            <item>5</item>
+            <ip>81.40.128.46</ip>
+            <userAgent>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</userAgent>
+        </voto>
+    </lugar>
+</lugares>
