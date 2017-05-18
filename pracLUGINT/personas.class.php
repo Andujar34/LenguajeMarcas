@@ -21,6 +21,7 @@ function giveList()
     foreach ($this->xpath->query("//voto") as $nodo) {
 
         $ciudad=$this->locateIp($nodo->childNodes[3]->nodeValue);
+        echo $ciudad.PHP_EOL;
         if(empty($datos[$ciudad])){
             $puntuacion=$nodo->childNodes[1]->nodeValue;
             $datos[$ciudad] =array("votantes"=>"1","votos"=>$puntuacion);
@@ -29,16 +30,15 @@ function giveList()
             $votantes =((int)$datos[$ciudad]['votantes'])+1;
             $puntuacion=((int)$nodo->childNodes[1]->nodeValue)+((int)$datos[$ciudad]['votos']);
            $datos[$ciudad] =array("votantes"=>$votantes,"votos"=>$puntuacion);
-          }
-        
-        
+          }    
          
     }
  echo json_encode($datos);
 }
       function locateIp($ip){
-            $meta = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
-            return $meta['geoplugin_region'];
-    
+            $json = file_get_contents("http://ipinfo.io/{$ip}/geo");
+                $details = json_decode($json, true);
+                return $details['postal'];
 }
+
 }
