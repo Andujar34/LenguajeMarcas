@@ -21,7 +21,6 @@ function giveList()
     foreach ($this->xpath->query("//voto") as $nodo) {
 
         $ciudad=$this->locateIp($nodo->childNodes[3]->nodeValue);
-        var_dump($nodo);
         if(empty($datos[$ciudad])){
             $puntuacion=$nodo->childNodes[1]->nodeValue;
             $datos[$ciudad] =array("votantes"=>"1","votos"=>$puntuacion);
