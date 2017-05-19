@@ -21,6 +21,7 @@ function giveList()
     foreach ($this->xpath->query("//voto") as $nodo) {
 
         $ciudad=$this->locateIp($nodo->childNodes[3]->nodeValue);
+        var_dump($nodo);
         if(empty($datos[$ciudad])){
             $puntuacion=$nodo->childNodes[1]->nodeValue;
             $datos[$ciudad] =array("votantes"=>"1","votos"=>$puntuacion);
@@ -37,7 +38,11 @@ function giveList()
       function locateIp($ip){
             $json = file_get_contents("http://ipinfo.io/{$ip}/geo");
                 $details = json_decode($json, true);
-                return $details['city'];
+                $ciudad = $details['city'];
+                if($details['city']==null){
+                     $ciudad="UNKNOWN";
+                }
+                return $ciudad;
 }
 
 }
