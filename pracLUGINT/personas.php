@@ -6,11 +6,8 @@ define(FICHERO, __DIR__ . DIRECTORY_SEPARATOR . 'lugaresInt.xml');
 
 require_once RUTA . 'personas.class.php';
 
-$accion = filter_input(INPUT_POST, 'check');
-
- 
+$accion = filter_input(INPUT_POST, 'check'); 
 $per = new personas();
 if ($accion == "votacion") {
     echo $per->giveList();
 }
-echo $per->giveList();

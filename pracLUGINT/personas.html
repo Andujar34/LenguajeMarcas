@@ -1,34 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Estadistica votos</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+    </style>
     <style>
         .panel-heading {
             text-align: center;
         }
+
         .container {
             min-width: 1000px;
             /* padding-right: 15px; */
             /* padding-left: 15px; */
         }
-        </style>
+
+        .divTable {
+            display: table;
+            width: 60%;
+            margin: auto;
+            text-align: center;
+            margin-bottom: 1%;
+            margin-top: 10px;
+        }
+
+        .divTableRow {
+            display: table-row;
+        }
+
+        .divTableCell,
+        .divTableHead {
+            border: 1px solid #999999;
+            display: table-cell;
+            padding: 3px 10px;
+        }
+
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+            font-weight: bold;
+        }
+
+        .divTableFoot {
+            background-color: #EEE;
+            display: table-footer-group;
+            font-weight: bold;
+        }
+
+        .divTableBody {
+            display: table-row-group;
+        }
+
+        #divContenedorGrafico {
+            text-align: center;
+            width: 100%;
+        }
+
+        #divGrafico {
+            display: inline-block;
+        }
+
+        #divComprobar {
+            text-align: center;
+        }
+
+        #butComprobar {
+            margin: 0 auto;
+        }
+    </style>
+    <script src="../js/ajaxCG.js"></script>
 </head>
+
 <body>
-<div class="container">
+    <div class="container-fluid container">
 
 
         <div class="panel panel-primary ">
 
 
             <div class="panel-heading">INFORMACION VOTANTES </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="chart_div">
+                            </div>
+                        </div>
+                        <div id="containerTable" class="col-md-12">
+                            <div class="divTable">
+                                <div class="divTableHeading">
+                                    <div class="divTableHead">PROVINCIA</div>
+                                    <div class="divTableHead">NUMERO VOTANTES</div>
+                                    <div class="divTableHead">TOTAL VOTOS</div>
+                                </div>
+                                <div id="tablebody" class="divTableBody">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-</div>
-    
+    </div>
+    <div id="divContenedorGrafico">
+        <div id="divGrafico">
+
+        </div>
+    </div>
+    <div id="divComprobar">
+        <button class="btn-primary btn-lg" id="butComprobar" type="button" onclick="verVotacion()">Volver a votar</button>
+    </div>
 </body>
+<script>
+    var votaciones = {};
+    google.charts.load("current", {
+        packages: ["corechart"]
+    });
+    google.charts.setOnLoadCallback(drawChart);
+    window.onload = () => {
+        ajax({
+            type: 'POST',
+            url: 'controlSesion.php',
+            parse: true
+        }).then((data) => {
+            if (data.status == "ok") {
+                show();
+            } else {
+                window.location.href = 'login.html';
+            }
+
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    function show() {
+        ajax({
+            type: 'POST',
+            url: 'personas.php',
+            data: {
+                check: "votacion"
+            },
+            parse: true
+        }).then((data) => {
+            console.log(data);
+            rellenar(data.datos);
+
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+
+
+    function rellenar(data) {
+        var html = "";
+        for (k in data) {
+            html += '<div class="divTableRow">';
+            html += '<div class="divTableCell">' + k + '</div>';
+            html += '<div class="divTableCell">' + data[k].votantes + '</div>';
+            html += '<div class="divTableCell">' + data[k].votos + '</div></div>';
+        }
+        window.document.getElementById('tablebody').innerHTML = html;
+        drawChart(data);
+    }
+
+    function drawChart(datos) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Ciudades');
+        data.addColumn('number', 'Votos');
+        for (k in datos) {
+            data.addRows([
+                [k, datos[k].votos],
+            ]);
+        }
+        var options = {
+            title: 'Resultado de las votaciones',
+            is3D: true,
+            width: 600,
+            height: 400,
+
+        };
+
+
+        var chart = new google.visualization.PieChart(document.getElementById('divGrafico'));
+        chart.draw(data, options);
+    }
+
+    function verVotacion() {
+        window.open("votos.html", "_self");
+    }
+</script>
+
+
+
 </html>

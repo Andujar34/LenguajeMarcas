@@ -21,7 +21,6 @@ function giveList()
     foreach ($this->xpath->query("//voto") as $nodo) {
 
         $ciudad=$this->locateIp($nodo->childNodes[3]->nodeValue);
-        echo $ciudad.PHP_EOL;
         if(empty($datos[$ciudad])){
             $puntuacion=$nodo->childNodes[1]->nodeValue;
             $datos[$ciudad] =array("votantes"=>"1","votos"=>$puntuacion);
@@ -33,12 +32,12 @@ function giveList()
           }    
          
     }
- echo json_encode($datos);
+ echo json_encode(array("datos"=>$datos,"status"=>"ok","mensaje"=>"consulta exitosa"));
 }
       function locateIp($ip){
             $json = file_get_contents("http://ipinfo.io/{$ip}/geo");
                 $details = json_decode($json, true);
-                return $details['postal'];
+                return $details['city'];
 }
 
 }
