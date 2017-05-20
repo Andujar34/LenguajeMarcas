@@ -172,6 +172,7 @@
             html += '<div class="divTableCell">' + data[k].votos + '</div></div>';
         }
         window.document.getElementById('tablebody').innerHTML = html;
+        
         drawChart(data);
     }
 
@@ -179,9 +180,10 @@
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Ciudades');
         data.addColumn('number', 'Votos');
+        
         for (k in datos) {
             data.addRows([
-                [k, datos[k].votos],
+                [k, parseInt(datos[k].votos)],
             ]);
         }
         var options = {
