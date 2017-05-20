@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gen XPath</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+         ::-moz-selection {
+            /* Code for Firefox */
+            color: whitesmoke;
+            background: #258dc8;
+        }
+
+         ::selection {
+            color: whitesmoke;
+            background: #258dc8;
+        }
+    </style>
+</head>
+
+<body <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                XPath Online
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class=" btn btn-default">
+
+                                <input id="inputElement"type="file" accept="application/xml" onchange="checkFileExtension()"/>
+                                Subir Archivo
+                            </label>
+
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label id="nameFile" for="comment">XML: </label>
+                        <textarea id="xmlArea" class="form-control" rows="30"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" name="" value="" id="inpXpath">
+                    <button id="btnXpath" type="button" class="btn btn-default" onClick="getXPATH()" disabled>
+                                Xpath
+                            </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="comment">Resultado XPATH:</label>
+                        <textarea class="form-control" rows="30" id="xpathArea"></textarea>
+                        <button type="button" onclick="copyTo(event)">Copiar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        let meFile;
+        var parsed;
+
+        function copyTo(event) {
+            console.log(event);
+            event.preventDefault();
+            xpathArea.select();
+            document.execCommand("copy");
+        }
+
+        function doit() {
+            var reader = new FileReader();
+            reader.onload = function () {
+                parsed = new DOMParser().parseFromString(this.result, "text/xml");
+               var html = formaXML(new XMLSerializer().serializeToString(parsed));
+                xmlArea.innerHTML = html;
+                btnXpath.disabled = false;
+            }
+            reader.readAsText(meFile);
+        }
+
+        function formaXML(xml) {
+            var reg = /(>)\s*(<)(\/*)/g;
+            var wsexp = / *(.*) +\n/g;
+            var contexp = /(<.+>)(.+\n)/g;
+            xml = xml.replace(reg, '$1\n$2$3').replace(wsexp, '$1\n').replace(contexp, '$1\n$2');
+            var pad = 0;
+            var formatted = '';
+            var lines = xml.split('\n');
+            var indent = 0;
+            var lastType = 'other';
+            var transitions = {
+                'single->single': 0,
+                'single->closing': -1,
+                'single->opening': 0,
+                'single->other': 0,
+                'closing->single': 0,
+                'closing->closing': -1,
+                'closing->opening': 0,
+                'closing->other': 0,
+                'opening->single': 1,
+                'opening->closing': 0,
+                'opening->opening': 1,
+                'opening->other': 1,
+                'other->single': 0,
+                'other->closing': -1,
+                'other->opening': 0,
+                'other->other': 0
+            };
+
+            for (var i = 0; i < lines.length; i++) {
+                var ln = lines[i];
+                var single = Boolean(ln.match(/<.+\/>/)); // is this line a single tag? ex. <br />
+                var closing = Boolean(ln.match(/<\/.+>/)); // is this a closing tag? ex. </a>
+                var opening = Boolean(ln.match(/<[^!].*>/)); // is this even a tag (that's not <!something>)
+                var type = single ? 'single' : closing ? 'closing' : opening ? 'opening' : 'other';
+                var fromTo = lastType + '->' + type;
+                lastType = type;
+                var padding = '';
+
+                indent += transitions[fromTo];
+                for (var j = 0; j < indent; j++) {
+                    padding += '\t';
+                }
+                if (fromTo == 'opening->closing')
+                    formatted = formatted.substr(0, formatted.length - 1) + ln + '\n'; // substr removes line break (\n) from prev loop
+                else
+                    formatted += padding + ln + '\n';
+            }
+            return formatted;
+        }
+
+        function checkFileExtension() {
+            meFile = inputElement.files[0];
+            if (meFile.type == 'text/xml') {
+                nameFile.innerHTML = "XML: " + meFile.name;
+                doit();
+                return true;
+            }
+            return false
+        }
+
+        function getXPATH() {
+            ajax({
+                type: 'POST',
+                url: 'genxpathSER.php',
+                data: {
+                check: "generacion",
+                
+            },
+                parse: true
+            }).then((data) => {
+                
+
+            }).catch((error) => {
+                console.log(error);
+            });
+        
+        xpathArea.innerHTML = (html != "") ? formaXML(html) : "Xpath no encontrado";
+        }
+    </script>
+</body>
+
+</html>
